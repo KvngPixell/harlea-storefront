@@ -1,0 +1,23 @@
+# One-time helper: unpacks import-bundle.tar.gz (uploaded through the GitHub website)
+# into the repo, then removes the bundle. Safe to delete once the project is imported.
+name: Import uploaded bundle
+on:
+  push:
+    paths: ['import-bundle.tar.gz']
+permissions:
+  contents: write
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack bundle into the repo
+        run: |
+          set -euo pipefail
+          tar -xzf import-bundle.tar.gz
+          git rm -q import-bundle.tar.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "chore: import project files from bundle"
+          git push
