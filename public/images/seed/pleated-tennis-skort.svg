@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Pleated Tennis Skort">
+<defs><pattern id="p" width="60" height="60" patternUnits="userSpaceOnUse"><rect width="30" height="60" fill="rgba(255,255,255,0.45)"/><rect width="60" height="30" fill="rgba(255,255,255,0.45)"/></pattern></defs>
+<rect width="800" height="1000" fill="#FFF0A6"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="735" rx="230" ry="26" fill="#3A1631" opacity="0.12"/>
+<path d="M285,420 L515,420 L590,690 L210,690 Z" fill="#FFD1E3" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M330,420 L275,690 M368,420 L338,690 M400,420 L400,690 M432,420 L462,690 M470,420 L525,690" fill="none" stroke="#3A1631" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+<rect x="280" y="370" width="240" height="55" rx="16" fill="#FF9EC7" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M215,672 L585,672" fill="none" stroke="#FFFFFF" stroke-width="10" opacity="0.8"/>
+<path d="M300,470 L265,640" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>

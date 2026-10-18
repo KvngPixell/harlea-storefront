@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Satin Bow Cami">
+<defs><pattern id="p" width="56" height="56" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="5" fill="rgba(255,255,255,0.55)"/><circle cx="42" cy="42" r="5" fill="rgba(255,255,255,0.55)"/></pattern></defs>
+<rect width="800" height="1000" fill="#E9DDFF"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="770" rx="230" ry="26" fill="#3A1631" opacity="0.12"/>
+<path d="M335,250 L318,420 M465,250 L482,420" fill="none" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M300,420 Q400,455 500,420 L545,720 Q400,755 255,720 Z" fill="#FFC2D9" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M330,470 Q352,580 318,690" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" opacity="0.55"/><path d="M470,500 Q480,560 470,620" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+<g transform="translate(400 445)"><path d="M0,0 C-40,-40 -80,-10 -60,20 C-45,40 -15,15 0,0 Z" fill="#FF4FA0" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><path d="M0,0 C40,-40 80,-10 60,20 C45,40 15,15 0,0 Z" fill="#FF4FA0" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><path d="M-6,4 L-26,60 M6,4 L26,60" fill="none" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><circle r="13" fill="#FF7EB6" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></g>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>

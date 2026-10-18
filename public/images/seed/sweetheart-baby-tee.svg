@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Sweetheart Baby Tee">
+<defs><pattern id="p" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="16" height="48" fill="rgba(255,255,255,0.5)"/></pattern></defs>
+<rect width="800" height="1000" fill="#FFF0A6"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="735" rx="250" ry="26" fill="#3A1631" opacity="0.12"/>
+<path d="M320,320 Q400,365 480,320 L585,375 L548,470 L500,452 L500,695 L300,695 L300,452 L252,470 L215,375 Z" fill="#FFFFFF" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M330,326 Q400,372 470,326" fill="none" stroke="#FF9EC7" stroke-width="12" stroke-linecap="round"/>
+<path d="M400,600.8 C300.8,532.6 362.8,464.4 400,517.1 C437.2,464.4 499.2,532.6 400,600.8 Z" fill="#FF4FA0" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><path d="M372,520 q-6,-18 12,-28" fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round" opacity="0.55"/>
+<path d="M300,672 L500,672" fill="none" stroke="#FFD1E3" stroke-width="10"/>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Cloud Knit Cardigan">
+<defs><pattern id="p" width="56" height="56" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="5" fill="rgba(255,255,255,0.55)"/><circle cx="42" cy="42" r="5" fill="rgba(255,255,255,0.55)"/></pattern></defs>
+<rect width="800" height="1000" fill="#FFE8F0"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="760" rx="260" ry="26" fill="#3A1631" opacity="0.12"/>
+<path d="M330,300 L262,322 L190,575 L250,592 L305,450 L305,725 L495,725 L495,450 L550,592 L610,575 L538,322 L470,300 Q400,340 330,300 Z" fill="#D9C7FF" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M330,300 L400,520 L470,300 Q400,340 330,300 Z" fill="#FFF8F2" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M400,520 L400,725" fill="none" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M305,700 L495,700 M196,555 L248,571 M604,555 L552,571" fill="none" stroke="#3A1631" stroke-width="5" stroke-linecap="round"/>
+<g fill="#FFFFFF" stroke="#3A1631" stroke-width="4"><circle cx="420" cy="560" r="11"/><circle cx="420" cy="610" r="11"/><circle cx="420" cy="660" r="11"/></g>
+<g fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.7"><path d="M330,380 q8,10 0,20 q-8,10 0,20 q8,10 0,20 q-8,10 0,20 q8,10 0,20"/><path d="M470,560 q8,10 0,20 q-8,10 0,20 q8,10 0,20"/></g>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>

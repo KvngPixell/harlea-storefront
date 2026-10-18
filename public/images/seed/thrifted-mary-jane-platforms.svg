@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Thrifted Mary Jane Platforms">
+<defs><pattern id="p" width="56" height="56" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="5" fill="rgba(255,255,255,0.55)"/><circle cx="42" cy="42" r="5" fill="rgba(255,255,255,0.55)"/></pattern></defs>
+<rect width="800" height="1000" fill="#E9DDFF"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="700" rx="280" ry="26" fill="#3A1631" opacity="0.12"/>
+<g transform="translate(110 -55)"><path d="M235,560 Q245,470 345,468 L430,478 Q482,498 490,560 Z" fill="#E85C9C" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/><rect x="222" y="556" width="280" height="66" rx="22" fill="#FFF8F2" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></g>
+<path d="M200,600 Q210,505 310,503 L395,513 Q447,533 455,600 Z" fill="#FF7EB6" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M285,512 Q330,540 372,516" fill="none" stroke="#3A1631" stroke-width="16" stroke-linecap="round"/>
+<circle cx="372" cy="518" r="8" fill="#F2C24E" stroke="#3A1631" stroke-width="3"/>
+<rect x="186" y="596" width="282" height="70" rx="22" fill="#FFF8F2" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M240,560 Q260,530 300,525" fill="none" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>

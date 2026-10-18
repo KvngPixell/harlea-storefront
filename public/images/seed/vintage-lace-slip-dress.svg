@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Vintage Lace Slip Dress">
+<defs><pattern id="p" width="56" height="56" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="5" fill="rgba(255,255,255,0.55)"/><circle cx="42" cy="42" r="5" fill="rgba(255,255,255,0.55)"/></pattern></defs>
+<rect width="800" height="1000" fill="#FFE8F0"/>
+<rect width="800" height="1000" fill="url(#p)"/>
+<ellipse cx="400" cy="905" rx="220" ry="26" fill="#3A1631" opacity="0.12"/>
+<path d="M345,230 L330,360 M455,230 L470,360" fill="none" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M318,360 Q400,392 482,360 L500,500 Q522,700 585,860 Q400,895 215,860 Q278,700 300,500 Z" fill="#F7E4CB" stroke="#3A1631" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M322,372 Q400,404 478,372" fill="none" stroke="#FFFFFF" stroke-width="12" stroke-dasharray="2 14" stroke-linecap="round"/>
+<g fill="#FFFFFF" stroke="#3A1631" stroke-width="4"><circle cx="232" cy="866" r="16"/><circle cx="269.5" cy="869.4202014332567" r="16"/><circle cx="307" cy="872.4278760968654" r="16"/><circle cx="344.5" cy="874.6602540378444" r="16"/><circle cx="382" cy="875.848077530122" r="16"/><circle cx="419.5" cy="875.848077530122" r="16"/><circle cx="457" cy="874.6602540378444" r="16"/><circle cx="494.5" cy="872.4278760968654" r="16"/><circle cx="532" cy="869.4202014332567" r="16"/><circle cx="569.5" cy="866" r="16"/></g>
+<path d="M335,440 Q350,640 290,820" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" opacity="0.55"/><path d="M460,520 Q480,640 500,720" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" opacity="0.55"/>
+<path d="M150,156 C155.1,184.9 155.1,184.9 184,190 C155.1,195.1 155.1,195.1 150,224 C144.9,195.1 144.9,195.1 116,190 C144.9,184.9 144.9,184.9 150,156 Z" fill="#FFFFFF"/><path d="M660,236 C663.6,256.4 663.6,256.4 684,260 C663.6,263.6 663.6,263.6 660,284 C656.4,263.6 656.4,263.6 636,260 C656.4,256.4 656.4,256.4 660,236 Z" fill="#FF4FA0"/><path d="M640,830 C644.5,855.5 644.5,855.5 670,860 C644.5,864.5 644.5,864.5 640,890 C635.5,864.5 635.5,864.5 610,860 C635.5,855.5 635.5,855.5 640,830 Z" fill="#FFFFFF"/><path d="M170,802 C172.7,817.3 172.7,817.3 188,820 C172.7,822.7 172.7,822.7 170,838 C167.3,822.7 167.3,822.7 152,820 C167.3,817.3 167.3,817.3 170,802 Z" fill="#FF4FA0"/>
+</svg>
