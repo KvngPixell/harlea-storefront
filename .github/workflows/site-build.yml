@@ -1,0 +1,35 @@
+# Temporary helper while Netlify isn't linked to GitHub yet: builds the website with Vite
+# and publishes dist as site.zip on a "site-build-<run>" branch so it can be uploaded to
+# Netlify by hand. Delete this file once Netlify builds from GitHub directly.
+name: Build site zip
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: npm run build
+        env:
+          # Public values (they ship inside the website anyway).
+          VITE_SUPABASE_URL: https://obmvinwhquxckjafmanb.supabase.co
+          VITE_SUPABASE_ANON_KEY: sb_publishable_joh6aLs1053HpJrtr7lllA_tMOYp3UV
+      - name: Publish site.zip
+        run: |
+          set -euo pipefail
+          (cd dist && zip -qr ../site.zip .)
+          mkdir /tmp/out && cp site.zip /tmp/out/ && cd /tmp/out
+          git init -q -b "site-build-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site.zip && git commit -qm "site build for ${GITHUB_SHA}"
+          git push -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "site-build-${GITHUB_RUN_ID}"
