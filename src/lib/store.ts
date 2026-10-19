@@ -5,18 +5,22 @@
 import { seedOutfits, seedProducts, seedTabs } from '../data/seed'
 import type {
   Idea,
+  LinkClick,
   Order,
   OrderStatus,
   Outfit,
   Product,
   ProductImage,
   ProductPrivate,
+  StoreEntry,
+  Subscriber,
   Tab,
 } from '../types'
 import { IS_DEMO } from './config'
 import { uid } from './format'
 import { blobToDataUrl, resizeImage } from './image'
 import { db, deleteMedia, uploadMedia } from './supabase'
+import { seedStores } from '../data/stores'
 
 export interface SiteSettings {
   brand_name: string
@@ -58,10 +62,19 @@ export interface Store {
   deleteIdea(id: string): Promise<void>
   saveSettings(s: SiteSettings): Promise<void>
   uploadImage(file: File, folder: 'products' | 'ideas' | 'outfits'): Promise<string>
+  listStores(): Promise<StoreEntry[]>
+  saveStore(s: Partial<StoreEntry> & { name: string }): Promise<StoreEntry>
+  deleteStore(id: string): Promise<void>
+  listSubscribers(): Promise<Subscriber[]>
+  listClicks(sinceIso: string): Promise<LinkClick[]>
+  /** Public: join the email list. Returns false for an invalid email. */
+  subscribe(email: string, source: string): Promise<boolean>
+  /** Public: count a click on a "Buy at …" link (never blocks the shopper). */
+  trackClick(productId: string, source: string): void
 }
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  brand_name: 'Harlea’s Shop',
+  brand_name: '96.co',
   tagline: 'cute finds, curated looks & one-of-one treasures',
   announcement: 'new drops every week ✦ free shipping over $75',
   instagram_url: null,
@@ -76,7 +89,10 @@ const bySort = <T extends { sort_order: number }>(a: T, b: T) => a.sort_order - 
 
 const PRODUCT_COLUMNS = [
   'name', 'slug', 'description', 'type', 'category', 'price_cents', 'compare_at_cents', 'sizes', 'tab_id',
-  'store_name', 'affiliate_url', 'is_featured', 'is_sold', 'is_published', 'sort_order',
+  'store_name', 'affiliate_url', 'is_featured', 'is_sold', 'is_published', 'sort_order', 'brand', 'condition', 'color',
+] as const
+const STORE_COLUMNS = [
+  'name', 'kind', 'status', 'website_url', 'signup_url', 'commission', 'requirements', 'payout', 'cost', 'my_id', 'notes', 'sort_order',
 ] as const
 
 function pick<T extends object>(obj: T, keys: readonly string[]): Partial<T> {
@@ -218,6 +234,38 @@ const liveStore: Store = {
     const path = `${folder}/${new Date().getFullYear()}/${uid()}.${ext}`
     return uploadMedia(path, blob)
   },
+
+  listStores() {
+    return db<StoreEntry[]>('stores?select=*&order=sort_order.asc,name.asc')
+  },
+
+  async saveStore(entry) {
+    const row = pick(entry, STORE_COLUMNS)
+    const [saved] = entry.id
+      ? await db<StoreEntry[]>(`stores?id=eq.${entry.id}`, { method: 'PATCH', body: row, prefer: 'return=representation' })
+      : await db<StoreEntry[]>('stores', { method: 'POST', body: row, prefer: 'return=representation' })
+    return saved
+  },
+
+  async deleteStore(id) {
+    await db(`stores?id=eq.${id}`, { method: 'DELETE' })
+  },
+
+  listSubscribers() {
+    return db<Subscriber[]>('subscribers?select=*&order=created_at.desc&limit=5000')
+  },
+
+  listClicks(sinceIso) {
+    return db<LinkClick[]>(`link_clicks?select=*&created_at=gte.${encodeURIComponent(sinceIso)}&order=created_at.desc&limit=5000`)
+  },
+
+  async subscribe(email, source) {
+    return db<boolean>('rpc/subscribe', { method: 'POST', body: { p_email: email, p_source: source } })
+  },
+
+  trackClick(productId, source) {
+    void db('rpc/track_click', { method: 'POST', body: { p_product: productId, p_source: source }, keepalive: true }).catch(() => undefined)
+  },
 }
 
 /* ======================= DEMO (this browser only) ======================= */
@@ -231,10 +279,13 @@ interface DemoDb {
   ideas: Idea[]
   private: ProductPrivate[]
   settings: SiteSettings
+  stores: StoreEntry[]
+  subscribers: Subscriber[]
+  clicks: LinkClick[]
 }
 
 const DEMO_KEY = 'hs-demo-db'
-const DEMO_VERSION = 1
+const DEMO_VERSION = 2
 let demoMemory: DemoDb | null = null
 
 function sampleOrders(products: Product[]): Order[] {
@@ -283,6 +334,9 @@ function freshDemo(): DemoDb {
     ],
     private: [],
     settings: { ...DEFAULT_SETTINGS },
+    stores: structuredClone(seedStores),
+    subscribers: [],
+    clicks: [],
   }
 }
 
@@ -462,6 +516,58 @@ const demoStore: Store = {
   async uploadImage(file) {
     const blob = await resizeImage(file, 900)
     return blobToDataUrl(blob)
+  },
+
+  async listStores() {
+    return structuredClone(demo().stores).sort(bySort)
+  },
+
+  async saveStore(entry) {
+    await pause()
+    const d = demo()
+    const existing = d.stores.find((x) => x.id === entry.id)
+    const saved: StoreEntry = {
+      kind: 'store', status: 'idea', website_url: null, signup_url: null, commission: '', requirements: '', payout: '',
+      cost: '', my_id: '', notes: '', sort_order: d.stores.length + 1, ...existing, ...entry, id: entry.id ?? uid(),
+    } as StoreEntry
+    d.stores = existing ? d.stores.map((x) => (x.id === saved.id ? saved : x)) : [...d.stores, saved]
+    saveDemo()
+    return saved
+  },
+
+  async deleteStore(id) {
+    const d = demo()
+    d.stores = d.stores.filter((x) => x.id !== id)
+    saveDemo()
+  },
+
+  async listSubscribers() {
+    return structuredClone(demo().subscribers)
+  },
+
+  async listClicks(sinceIso) {
+    return demo().clicks.filter((c) => c.created_at >= sinceIso)
+  },
+
+  async subscribe(email) {
+    const e = email.trim().toLowerCase()
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)) return false
+    const d = demo()
+    if (!d.subscribers.some((x) => x.email === e)) {
+      d.subscribers.unshift({ email: e, source: 'footer', created_at: new Date().toISOString(), unsubscribed_at: null })
+      saveDemo()
+    }
+    return true
+  },
+
+  trackClick(productId, source) {
+    const d = demo()
+    d.clicks.unshift({ id: Date.now(), product_id: productId, source, created_at: new Date().toISOString() })
+    try {
+      saveDemo()
+    } catch {
+      /* ignore */
+    }
   },
 }
 

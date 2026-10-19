@@ -35,6 +35,9 @@ interface Draft {
   is_sold: boolean
   slug: string
   photos: ImageInput[]
+  brand: string
+  condition: 'new' | 'used'
+  color: string
 }
 
 const cents = (c: number | null) => (c === null ? '' : (c / 100).toFixed(c % 100 === 0 ? 0 : 2))
@@ -56,6 +59,9 @@ function toDraft(p: Product | undefined, defaultTab: string): Draft {
     is_sold: p?.is_sold ?? false,
     slug: p?.slug ?? '',
     photos: (p?.product_images ?? []).map((i) => ({ id: i.id, url: i.url, alt: i.alt })),
+    brand: p?.brand ?? '',
+    condition: p?.condition ?? (p?.type === 'unique' ? 'used' : 'new'),
+    color: p?.color ?? '',
   }
 }
 
@@ -128,6 +134,9 @@ export default function ProductEditor({ id }: { id: string }) {
       is_sold: d.type === 'unique' ? d.is_sold : false,
       is_published: d.is_published,
       sort_order: existing?.sort_order ?? catalog.products.length + 1,
+      brand: d.brand.trim() || null,
+      condition: d.condition,
+      color: d.color.trim() || null,
     }
     try {
       const saved = await store.saveProduct(input, d.photos)
@@ -268,6 +277,24 @@ export default function ProductEditor({ id }: { id: string }) {
         </div>
 
         <div className="space-y-5 lg:sticky lg:top-6 lg:self-start">
+          {d.type !== 'affiliate' && (
+            <Panel title={<>Google & Pinterest details <Hint>Optional, but filling these in helps your products show up for free in Google Shopping, Pinterest and Instagram.</Hint></>}>
+              <div className="space-y-3">
+                <Field label="Brand" hint="Leave empty to use your shop name.">
+                  <input className="field" value={d.brand} onChange={(e) => set('brand', e.target.value)} placeholder="96.co" maxLength={70} />
+                </Field>
+                <Field label="Condition">
+                  <select className="field" value={d.condition} onChange={(e) => set('condition', e.target.value as 'new' | 'used')}>
+                    <option value="new">New</option>
+                    <option value="used">Pre-loved / vintage</option>
+                  </select>
+                </Field>
+                <Field label="Main color">
+                  <input className="field" value={d.color} onChange={(e) => set('color', e.target.value)} placeholder="e.g. Pink" maxLength={40} />
+                </Field>
+              </div>
+            </Panel>
+          )}
           <Panel title="Where it shows">
             <div className="space-y-3">
               <Field label="Shop tab" hint="Which tab shoppers find it in. Pick “No tab” for items you only use inside outfits.">

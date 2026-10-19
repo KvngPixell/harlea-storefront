@@ -1,9 +1,10 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { useBag } from '../lib/bag'
 import { IS_DEMO } from '../lib/config'
 import { cx } from '../lib/format'
 import { Link, useLocation } from '../lib/router'
-import { DEFAULT_SETTINGS } from '../lib/store'
+import { DEFAULT_SETTINGS, store } from '../lib/store'
+import { toast } from './ui'
 import { useCatalog } from '../lib/useCatalog'
 import {
   BagIcon,
@@ -111,6 +112,38 @@ export function Header() {
   )
 }
 
+function EmailSignup() {
+  const [email, setEmail] = useState('')
+  const [busy, setBusy] = useState(false)
+  const [done, setDone] = useState(false)
+  const submit = async (e: FormEvent) => {
+    e.preventDefault()
+    setBusy(true)
+    try {
+      const ok = await store.subscribe(email, 'footer')
+      if (ok) {
+        setDone(true)
+        setEmail('')
+      } else toast('That email doesn’t look quite right')
+    } catch {
+      toast('Couldn’t sign you up just now. Please try again.')
+    } finally {
+      setBusy(false)
+    }
+  }
+  if (done) return <p className="rounded-2xl bg-blush px-4 py-3 font-display">You’re on the list! 💌 First dibs on every drop.</p>
+  return (
+    <form onSubmit={submit} className="w-full max-w-md">
+      <label htmlFor="footer-email" className="mb-2 block font-display font-semibold">Get first dibs on new drops 💌</label>
+      <div className="flex gap-2">
+        <input id="footer-email" type="email" required autoComplete="email" className="field" placeholder="you@email.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <button className="btn btn-primary shrink-0" disabled={busy}>{busy ? '…' : 'Join'}</button>
+      </div>
+      <p className="mt-1.5 text-xs text-muted">No spam, just cute stuff. Unsubscribe anytime.</p>
+    </form>
+  )
+}
+
 export function Footer() {
   const { catalog } = useCatalog()
   const s = catalog?.settings ?? DEFAULT_SETTINGS
@@ -134,6 +167,7 @@ export function Footer() {
         <div className="card flex flex-col items-center gap-5 px-6 py-8 text-center">
           <p className="font-script text-3xl text-rose">{s.brand_name}</p>
           <p className="max-w-sm text-muted">{s.tagline}</p>
+          <EmailSignup />
           {socials.length > 0 && (
             <ul className="flex gap-2">
               {socials.map(({ url, label, Icon }) => (

@@ -7,13 +7,15 @@ const STEPS: Array<{ title: string; body: string; to: string; cta: string }> = [
   { title: '3. Organize your tabs', body: 'Shop tabs are the sections in the menu. Drag the dots to reorder, tap a name to rename, or tap the eye to hide a whole tab.', to: '/admin/tabs', cta: 'Shop tabs' },
   { title: '4. Style an outfit', body: 'Outfits → “New outfit”. Tap the pieces you want, drag them into order and save. Pieces from other stores? Add them as products with type “Link to another store” first.', to: '/admin/outfits/new', cta: 'New outfit' },
   { title: '5. Drop ideas in the inbox', body: 'Idea inbox → add a pic or a few words. Matching pieces get added for you to approve. Then one tap turns them into a draft outfit.', to: '/admin/ideas', cta: 'Idea inbox' },
-  { title: '6. Ship your orders', body: 'Home shows sales and how many orders are waiting. In Orders, open one to see the address and items, then tap “Mark as shipped”. For “Supplier ships” items, place the order with your supplier.', to: '/admin/orders', cta: 'Orders' },
+  { title: '6. Earn from links', body: 'Stores & programs has a starter list of affiliate programs you can join now (start with ShopMy and Mavely). Once approved, add pieces as “Link to another store” products. Home shows which links get clicked.', to: '/admin/stores', cta: 'Stores & programs' },
+  { title: '7. Grow your email list', body: 'Every page has a “first dibs on drops” sign-up. See and download the list under Email list, then announce new drops.', to: '/admin/email', cta: 'Email list' },
+  { title: '8. Ship your orders', body: 'Home shows sales and how many orders are waiting. In Orders, open one to see the address and items, then tap “Mark as shipped”. For “Supplier ships” items, place the order with your supplier.', to: '/admin/orders', cta: 'Orders' },
 ]
 
 export default function Help() {
   return (
     <>
-      <PageHeader title="Help & 2-minute tour" subtitle="Everything you can do here, in six steps." />
+      <PageHeader title="Help & 2-minute tour" subtitle="Everything you can do here, step by step." />
       <div className="grid gap-4 md:grid-cols-2">
         {STEPS.map((s) => (
           <Panel key={s.title} title={s.title}>

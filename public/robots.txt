@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin
+Disallow: /bag
+Disallow: /order/
+
+Sitemap: https://harlea-storefront.netlify.app/sitemap.xml

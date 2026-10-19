@@ -50,6 +50,9 @@ export interface Product {
   is_sold: boolean
   is_published: boolean
   sort_order: number
+  brand?: string | null
+  condition?: 'new' | 'used'
+  color?: string | null
   created_at?: string
   product_images?: ProductImage[]
 }
@@ -132,4 +135,38 @@ export interface CartLine {
   productId: string
   quantity: number
   size: string | null
+}
+
+export type StoreKind = 'affiliate' | 'supplier' | 'wholesale' | 'channel' | 'tool' | 'store'
+export type StoreStatus = 'idea' | 'applied' | 'approved' | 'active' | 'later' | 'not_a_fit'
+
+/** A store, affiliate program, supplier, sales channel or tool Harlea keeps track of. */
+export interface StoreEntry {
+  id: string
+  name: string
+  kind: StoreKind
+  status: StoreStatus
+  website_url: string | null
+  signup_url: string | null
+  commission: string
+  requirements: string
+  payout: string
+  cost: string
+  my_id: string
+  notes: string
+  sort_order: number
+}
+
+export interface Subscriber {
+  email: string
+  source: string | null
+  created_at: string
+  unsubscribed_at: string | null
+}
+
+export interface LinkClick {
+  id: number
+  product_id: string | null
+  source: string | null
+  created_at: string
 }

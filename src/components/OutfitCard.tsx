@@ -1,3 +1,4 @@
+import { hidesPrice } from '../lib/amazon'
 import { money } from '../lib/format'
 import { Link } from '../lib/router'
 import type { Outfit, Product } from '../types'
@@ -12,8 +13,13 @@ export function outfitPieces(outfit: Outfit, products: Product[]): Product[] {
     .filter((p): p is Product => Boolean(p))
 }
 
+/** Total of the pieces whose price we can show (Amazon prices can't be shown on our site). */
 export function outfitTotal(pieces: Product[]): number {
-  return pieces.reduce((sum, p) => sum + p.price_cents, 0)
+  return pieces.filter((p) => !hidesPrice(p)).reduce((sum, p) => sum + p.price_cents, 0)
+}
+
+export function hasHiddenPrices(pieces: Product[]): boolean {
+  return pieces.some((p) => hidesPrice(p))
 }
 
 export function OutfitCollage({ pieces, cover }: { pieces: Product[]; cover?: string | null }) {
@@ -41,7 +47,7 @@ export function OutfitCard({ outfit, products }: { outfit: Outfit; products: Pro
           <h3 className="font-display text-lg font-semibold leading-tight">{outfit.name}</h3>
           <p className="text-sm text-muted">{pieces.length} pieces</p>
         </div>
-        <span className="chip bg-blush text-rose">{money(outfitTotal(pieces))}</span>
+        <span className="chip bg-blush text-rose">{money(outfitTotal(pieces))}{hasHiddenPrices(pieces) ? '+' : ''}</span>
       </div>
     </Link>
   )

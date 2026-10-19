@@ -3,7 +3,7 @@ import { ErrorState, Spinner } from '../components/ui'
 import { cx, money, shortDate } from '../lib/format'
 import { Link } from '../lib/router'
 import { store } from '../lib/store'
-import type { Order } from '../types'
+import type { LinkClick, Order } from '../types'
 import { useAdminCtx } from './AdminApp'
 import { ColumnChart, RankBars, StatTile } from './charts'
 import { PageHeader, Panel } from './components'
@@ -31,6 +31,20 @@ export default function Overview() {
   const { catalog, demo } = useAdminCtx()
   const { orders, error, reload } = useOrders()
   const [days, setDays] = useState<7 | 30>(30)
+  const [clicks, setClicks] = useState<LinkClick[]>([])
+
+  useEffect(() => {
+    store.listClicks(new Date(Date.now() - days * 86400000).toISOString()).then(setClicks, () => setClicks([]))
+  }, [days])
+
+  const topClicks = useMemo(() => {
+    const byProduct = new Map<string, number>()
+    for (const c of clicks) if (c.product_id) byProduct.set(c.product_id, (byProduct.get(c.product_id) ?? 0) + 1)
+    return [...byProduct.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([id, value]) => ({ label: catalog.products.find((p) => p.id === id)?.name ?? 'Removed item', value }))
+  }, [clicks, catalog.products])
 
   const stats = useMemo(() => {
     if (!orders) return null
@@ -109,6 +123,13 @@ export default function Overview() {
               </div>
             </Panel>
           </div>
+          <Panel title={`“Buy at” link clicks (last ${days} days)`}>
+            {topClicks.length ? (
+              <RankBars rows={topClicks} unit="clicks" />
+            ) : (
+              <p className="text-muted">No clicks yet. When shoppers tap “Buy at …” on outfits or link items, they show up here.</p>
+            )}
+          </Panel>
           {orders && orders.length > 0 && (
             <Panel title="Latest orders" actions={<Link to="/admin/orders" className="text-sm text-rose underline">All orders</Link>}>
               <ul className="divide-y-2 divide-blush">

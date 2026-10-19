@@ -183,7 +183,7 @@ type Method = 'GET' | 'POST' | 'PATCH' | 'DELETE'
 /** Calls the database API. `path` looks like "products?select=*&is_published=eq.true". */
 export async function db<T = unknown>(
   path: string,
-  opts: { method?: Method; body?: unknown; prefer?: string; signal?: AbortSignal } = {},
+  opts: { method?: Method; body?: unknown; prefer?: string; signal?: AbortSignal; keepalive?: boolean } = {},
 ): Promise<T> {
   const session = await getSession()
   const headers = new Headers({ apikey: SUPABASE_ANON_KEY, 'Content-Type': 'application/json' })
@@ -194,6 +194,7 @@ export async function db<T = unknown>(
     headers,
     body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
     signal: opts.signal,
+    keepalive: opts.keepalive,
   })
   if (!res.ok) throw await parseError(res)
   if (res.status === 204) return undefined as T

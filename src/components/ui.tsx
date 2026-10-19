@@ -1,4 +1,5 @@
 import { useEffect, useState, type ReactNode } from 'react'
+import { hidesPrice } from '../lib/amazon'
 import { cx, money } from '../lib/format'
 import { Link } from '../lib/router'
 import type { Product } from '../types'
@@ -37,7 +38,12 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
   )
 }
 
-export function Price({ product, className }: { product: Pick<Product, 'price_cents' | 'compare_at_cents'>; className?: string }) {
+type PriceProduct = Pick<Product, 'price_cents' | 'compare_at_cents'> & Partial<Pick<Product, 'type' | 'affiliate_url'>>
+
+export function Price({ product, className }: { product: PriceProduct; className?: string }) {
+  if (product.type && hidesPrice({ type: product.type, affiliate_url: product.affiliate_url ?? null })) {
+    return <span className={cx('font-display font-semibold', className)}>See price on Amazon</span>
+  }
   const onSale = product.compare_at_cents !== null && product.compare_at_cents > product.price_cents
   return (
     <span className={cx('font-display font-semibold', className)}>

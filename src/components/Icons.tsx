@@ -170,6 +170,11 @@ export const MailIcon = (p: P) => (
     <path d="m4 7 8 6 8-6" />
   </Base>
 )
+export const StoreIcon = (p: P) => (
+  <Base {...p}>
+    <path d="M4 9.5 5.5 4h13L20 9.5M4 9.5h16M4 9.5a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0M5.5 12v8h13v-8M10 20v-5h4v5" />
+  </Base>
+)
 export const LogoutIcon = (p: P) => (
   <Base {...p}>
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />

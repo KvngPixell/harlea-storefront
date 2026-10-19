@@ -8,15 +8,18 @@ import {
   HelpIcon,
   HomeIcon,
   LogoutIcon,
+  MailIcon,
   MenuIcon,
   ReceiptIcon,
   Sparkle,
+  StoreIcon,
   TagIcon,
 } from '../components/Icons'
 import { ErrorState, Spinner } from '../components/ui'
 import { cx } from '../lib/format'
 import { Link, match, useLocation } from '../lib/router'
 import type { Catalog } from '../lib/store'
+import EmailList from './EmailList'
 import Help from './Help'
 import Ideas from './Ideas'
 import Login from './Login'
@@ -27,6 +30,7 @@ import Overview from './Overview'
 import ProductEditor from './ProductEditor'
 import Products from './Products'
 import Settings from './Settings'
+import Stores from './Stores'
 import Tabs from './Tabs'
 import { useAdminCatalog, useAuth } from './useAdmin'
 
@@ -50,6 +54,8 @@ const NAV = [
   { to: '/admin/tabs', label: 'Shop tabs', Icon: FolderIcon },
   { to: '/admin/outfits', label: 'Outfits', Icon: HangerIcon },
   { to: '/admin/ideas', label: 'Idea inbox', Icon: BulbIcon },
+  { to: '/admin/stores', label: 'Stores & programs', Icon: StoreIcon },
+  { to: '/admin/email', label: 'Email list', Icon: MailIcon },
   { to: '/admin/settings', label: 'Settings', Icon: GearIcon },
   { to: '/admin/help', label: 'Help', Icon: HelpIcon },
 ]
@@ -64,6 +70,8 @@ function Page({ pathname }: { pathname: string }) {
   if (match('/admin/outfits', pathname)) return <Outfits />
   if ((m = match('/admin/outfits/:id', pathname))) return <OutfitEditor id={m.id} />
   if (match('/admin/ideas', pathname)) return <Ideas />
+  if (match('/admin/stores', pathname)) return <Stores />
+  if (match('/admin/email', pathname)) return <EmailList />
   if (match('/admin/settings', pathname)) return <Settings />
   if (match('/admin/help', pathname)) return <Help />
   return <ErrorState message="That dashboard page doesn’t exist." />

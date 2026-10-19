@@ -80,6 +80,9 @@ export const seedProducts: Product[] = raw.map((p, i) => ({
   ...p,
   id: productId(i + 1),
   is_published: true,
+  brand: null,
+  condition: p.type === 'unique' ? 'used' : 'new',
+  color: null,
   product_images: [
     {
       id: imageId(i + 1),

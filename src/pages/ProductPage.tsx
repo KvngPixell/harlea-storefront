@@ -3,6 +3,7 @@ import { ArrowLeftIcon, BagIcon, ExternalIcon, MinusIcon, PlusIcon } from '../co
 import { OutfitCard } from '../components/OutfitCard'
 import { ProductGrid } from '../components/ProductCard'
 import { AffiliateNote, ErrorState, Price, ProductBadges, Spinner, toast } from '../components/ui'
+import { AffiliateLink } from '../lib/affiliate'
 import { bag, MAX_QTY } from '../lib/bag'
 import { startCheckout } from '../lib/checkout'
 import { cx, money } from '../lib/format'
@@ -30,7 +31,31 @@ export default function ProductPage({ slug }: { slug: string }) {
   }, [product?.id, product?.sizes])
 
   useEffect(() => {
-    if (product) document.title = `${product.name} · ${catalog?.settings.brand_name ?? ''}`
+    if (!product) return
+    document.title = `${product.name} · ${catalog?.settings.brand_name ?? ''}`
+    if (product.type === 'affiliate') return
+    // Product details Google can read (helps free Google Shopping listings).
+    const el = document.createElement('script')
+    el.type = 'application/ld+json'
+    el.text = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: product.name,
+      description: product.description,
+      image: (product.product_images ?? []).map((i) => new URL(i.url, location.origin).toString()),
+      sku: product.id,
+      brand: { '@type': 'Brand', name: product.brand || catalog?.settings.brand_name || '96.co' },
+      itemCondition: product.condition === 'used' ? 'https://schema.org/UsedCondition' : 'https://schema.org/NewCondition',
+      offers: {
+        '@type': 'Offer',
+        price: (product.price_cents / 100).toFixed(2),
+        priceCurrency: 'USD',
+        availability: product.is_sold ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+        url: location.href,
+      },
+    })
+    document.head.appendChild(el)
+    return () => el.remove()
   }, [product, catalog?.settings.brand_name])
 
   if (error) return <div className="px-4 py-16"><ErrorState message={error} onRetry={retry} /></div>
@@ -173,9 +198,9 @@ export default function ProductPage({ slug }: { slug: string }) {
               </p>
             ) : isAffiliate ? (
               <>
-                <a href={product.affiliate_url ?? '#'} target="_blank" rel="sponsored noopener noreferrer" className="btn btn-primary text-lg">
+                <AffiliateLink product={product} source="product" className="btn btn-primary text-lg">
                   Buy at {product.store_name ?? 'partner store'} <ExternalIcon size={18} />
-                </a>
+                </AffiliateLink>
                 <AffiliateNote />
               </>
             ) : (

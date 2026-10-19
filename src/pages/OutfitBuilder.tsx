@@ -6,6 +6,7 @@ import { navigate, useLocation } from '../lib/router'
 import { useCatalog } from '../lib/useCatalog'
 import type { Category, Product } from '../types'
 import { addPiecesToBag, PieceRow } from './OutfitPage'
+import { hasHiddenPrices, outfitTotal } from '../components/OutfitCard'
 
 const SLOTS: Array<{ key: string; label: string; cats: Category[] }> = [
   { key: 'top', label: 'Tops & dresses', cats: ['top', 'dress'] },
@@ -26,7 +27,7 @@ export default function OutfitBuilder() {
 
   const available = catalog.products.filter((p) => !p.is_sold)
   const chosen = picked.map((s) => available.find((p) => p.slug === s)).filter((p): p is Product => Boolean(p))
-  const total = chosen.reduce((s, p) => s + p.price_cents, 0)
+  const total = outfitTotal(chosen)
 
   const setPicked = (slugs: string[]) => {
     const q = slugs.length ? `?items=${slugs.join(',')}` : ''
@@ -124,7 +125,7 @@ export default function OutfitBuilder() {
                   ))}
                 </ul>
                 <p className="mt-4 flex items-center justify-between font-display text-lg">
-                  Total <strong className="text-rose">{money(total)}</strong>
+                  Total <strong className="text-rose">{money(total)}{hasHiddenPrices(chosen) ? ' + Amazon' : ''}</strong>
                 </p>
                 <div className="mt-4 grid gap-2">
                   {chosen.some((p) => p.type !== 'affiliate') && (

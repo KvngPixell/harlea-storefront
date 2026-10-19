@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ArrowLeftIcon, BagIcon, ExternalIcon } from '../components/Icons'
-import { OutfitCollage, outfitPieces, outfitTotal } from '../components/OutfitCard'
+import { hasHiddenPrices, OutfitCollage, outfitPieces, outfitTotal } from '../components/OutfitCard'
+import { AffiliateLink } from '../lib/affiliate'
 import { AffiliateNote, EmptyState, ErrorState, Price, ProductImg, Spinner, toast } from '../components/ui'
 import { bag } from '../lib/bag'
 import { money } from '../lib/format'
@@ -27,9 +28,9 @@ export function PieceRow({ product }: { product: Product }) {
       </div>
       {!product.is_sold &&
         (isAffiliate ? (
-          <a href={product.affiliate_url ?? '#'} target="_blank" rel="sponsored noopener noreferrer" className="btn btn-soft btn-sm shrink-0" aria-label={`Buy ${product.name} at ${product.store_name ?? 'partner store'}`}>
+          <AffiliateLink product={product} source="outfit" className="btn btn-soft btn-sm shrink-0" aria-label={`Buy ${product.name} at ${product.store_name ?? 'partner store'}`}>
             Buy <ExternalIcon size={16} />
-          </a>
+          </AffiliateLink>
         ) : (
           <Link to={`/p/${product.slug}`} className="btn btn-soft btn-sm shrink-0" aria-label={`View ${product.name}`}>
             View
@@ -102,6 +103,7 @@ export default function OutfitPage({ slug }: { slug: string }) {
           <div className="mt-6 flex flex-col gap-3 rounded-3xl bg-blush p-5 sm:flex-row sm:items-center sm:justify-between">
             <p className="font-display text-lg">
               Whole look: <strong className="text-rose">{money(outfitTotal(pieces))}</strong>
+              {hasHiddenPrices(pieces) && <span className="ml-1 text-sm text-muted">+ Amazon pieces</span>}
             </p>
             {ours.length > 0 && (
               <button className="btn btn-primary" onClick={addAll}>
