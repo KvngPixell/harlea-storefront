@@ -1,4 +1,4 @@
-# Harlea’s Shop 🎀
+# 96.co (Harlea’s shop) 🎀
 
 A girly-pop online shop you can link from Instagram/TikTok/Facebook bios, plus a simple
 dashboard for Harlea to run it, no coding needed.
